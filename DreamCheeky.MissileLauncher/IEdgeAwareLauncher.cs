@@ -3,10 +3,19 @@ using System.Threading.Tasks;
 
 namespace DreamCheeky.MissileLauncher
 {
-    public interface IEdgeAwareLauncher : ILauncher, IResettableLauncher
+    /// <summary>
+    /// A launcher that can detect the its edges.
+    /// </summary>
+    public interface IEdgeAwareLauncher : IResettableLauncher
     {
+        /// <summary>
+        /// Fired when the launcher's detected edge changes.
+        /// </summary>
         event EventHandler<EdgeChangeEventArgs> EdgeChange;
 
+        /// <summary>
+        /// Gets the currently detected edges of the launcher.
+        /// </summary>
         Edge Edges { get; }
     }
 
