@@ -26,7 +26,7 @@ namespace DreamCheeky.MissileLauncher
         private readonly Timer timer;
         private volatile Edge edges;
 
-        public LauncherDevice(int deviceIndex = 0, int productId = 0x0701, int vendorId = 0x0A81)
+        internal LauncherDevice(int deviceIndex = 0, int productId = 0x0701, int vendorId = 0x0A81)
         {
             this.device = HidDevices.Enumerate(vendorId, productId).Skip(deviceIndex).FirstOrDefault();
 
