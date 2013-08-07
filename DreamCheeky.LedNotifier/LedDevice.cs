@@ -13,12 +13,14 @@ namespace DreamCheeky.LedNotifier
         public static readonly int WebMailNotifierProductId = 0x04;
 
         private static readonly byte[] colorData = { 0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1F, 0x05 };
+
         private static readonly byte[][] initData =
         {
             new byte[] { 0, 0x1F, 0x02, 0x00, 0x5F, 0x00, 0x00, 0x1F, 0x03 },
             new byte[] { 0, 0x00, 0x02, 0x00, 0x5F, 0x00, 0x00, 0x1F, 0x04 },
             new byte[] { 0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01 },
         };
+
         private readonly HidDevice device;
         private bool initialized;
         private byte redRange = 60;
@@ -27,7 +29,7 @@ namespace DreamCheeky.LedNotifier
 
         public LedDevice(int deviceIndex = 0, int productId = 0x0A, int vendorId = 0x1D34)
         {
-            this.device = HidDevices.Enumerate(vendorId, productId).Skip(deviceIndex).Take(1).SingleOrDefault();
+            this.device = HidDevices.Enumerate(vendorId, productId).Skip(deviceIndex).FirstOrDefault();
 
             if (this.device == null)
             {
@@ -53,7 +55,7 @@ namespace DreamCheeky.LedNotifier
             set { this.blueRange = value; }
         }
 
-        public static int GetDeviceCount(int vendorId = 7476, int productId = 4)
+        public static int GetDeviceCount(int vendorId, int productId)
         {
             return HidDevices.Enumerate(vendorId, productId).Count();
         }
