@@ -28,7 +28,7 @@ namespace DreamCheeky.MissileLauncher
                                   select t;
 
             var services = from i in implementations
-                           let enumerate = i.GetMethod("Enumerate", BindingFlags.Static)
+                           let enumerate = i.GetMethod("Enumerate", BindingFlags.Static | BindingFlags.Public)
                            from s in (IEnumerable<Service>)enumerate.Invoke(null, new object[0])
                            select s;
 
