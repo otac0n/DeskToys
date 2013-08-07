@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using HidLibrary;
 
-namespace DreamCheeky.MissileLauncher
+namespace DreamCheeky.MissileLauncher.Implementations
 {
-    internal class LauncherDevice : IEdgeAwareLauncher
+    internal class UsbMissileLauncher : IEdgeAwareLauncher
     {
         private static readonly Dictionary<Command, byte[]> commands = new Dictionary<Command, byte[]>
         {
@@ -26,17 +25,19 @@ namespace DreamCheeky.MissileLauncher
         private readonly Timer timer;
         private int edges;
 
-        internal LauncherDevice(int deviceIndex = 0, int productId = 0x0701, int vendorId = 0x0A81)
+        private UsbMissileLauncher(HidDevice device)
         {
-            this.device = HidDevices.Enumerate(vendorId, productId).Skip(deviceIndex).FirstOrDefault();
-
-            if (this.device == null)
-            {
-                throw new ArgumentException("The given combination of vendorId, productId, and deviceIndex was invalid: no device found.");
-            }
-
+            this.device = device;
             this.Tick(null);
             this.timer = new Timer(Tick, null, TimeSpan.FromMilliseconds(100), TimeSpan.FromMilliseconds(100));
+        }
+
+        public static IEnumerable<Service> Enumerate()
+        {
+            foreach (var device in HidDevices.Enumerate(0x0A81, 0x0701))
+            {
+                yield return new Service<UsbMissileLauncher>(() => new UsbMissileLauncher(device));
+            }
         }
 
         public event EventHandler<EdgeChangeEventArgs> EdgeChange;
