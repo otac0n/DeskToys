@@ -39,10 +39,15 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AsyncAutoResetEvent.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="Edge.cs" />
     <Compile Include="EdgeChangeEventArgs.cs" />
+    <Compile Include="IEdgeAwareLauncher.cs" />
+    <Compile Include="ILauncher.cs" />
+    <Compile Include="IResettableLauncher.cs" />
     <Compile Include="LauncherDevice.cs" />
+    <Compile Include="Launchers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

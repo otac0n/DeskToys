@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using HidLibrary;
 
 namespace DreamCheeky.MissileLauncher
 {
-    public class LauncherDevice : IDisposable
+    internal class LauncherDevice : IEdgeAwareLauncher
     {
         private static readonly Dictionary<Command, byte[]> commands = new Dictionary<Command, byte[]>
         {
@@ -34,7 +35,8 @@ namespace DreamCheeky.MissileLauncher
                 throw new ArgumentException("The given combination of vendorId, productId, and deviceIndex was invalid: no device found.");
             }
 
-            this.timer = new Timer(Tick, null, TimeSpan.Zero, TimeSpan.FromMilliseconds(100));
+            this.Tick(null);
+            this.timer = new Timer(Tick, null, TimeSpan.FromMilliseconds(100), TimeSpan.FromMilliseconds(100));
         }
 
         public event EventHandler<EdgeChangeEventArgs> EdgeChange;
@@ -52,6 +54,11 @@ namespace DreamCheeky.MissileLauncher
         public void Send(Command command)
         {
             this.WriteSync(commands[command]);
+        }
+
+        public Task Reset(Edge edges)
+        {
+            return IEdgeAwareLauncherTraits.Reset(this, edges);
         }
 
         private void Tick(object state)
