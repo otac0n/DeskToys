@@ -49,6 +49,7 @@ namespace DreamCheeky.MissileLauncher.Implementations
 
         public void Dispose()
         {
+            this.timer.Dispose();
             this.device.Dispose();
         }
 
