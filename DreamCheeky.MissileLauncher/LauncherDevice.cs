@@ -60,7 +60,7 @@ namespace DreamCheeky.MissileLauncher
             var data = this.device.Read();
             if (data.Status == HidDeviceData.ReadStatus.Success)
             {
-                UpdateEdges((DeviceEdge)data.Data[0]);
+                UpdateEdges((DeviceEdge)data.Data[1]);
             }
         }
 
