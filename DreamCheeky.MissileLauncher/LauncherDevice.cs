@@ -24,7 +24,7 @@ namespace DreamCheeky.MissileLauncher
         private readonly object sync = new object();
         private readonly HidDevice device;
         private readonly Timer timer;
-        private volatile Edge edges;
+        private int edges;
 
         internal LauncherDevice(int deviceIndex = 0, int productId = 0x0701, int vendorId = 0x0A81)
         {
@@ -43,7 +43,7 @@ namespace DreamCheeky.MissileLauncher
 
         public Edge Edges
         {
-            get { return this.edges; }
+            get { return (Edge)this.edges; }
         }
 
         public void Dispose()
@@ -74,14 +74,13 @@ namespace DreamCheeky.MissileLauncher
         private void UpdateEdges(DeviceEdge newEdges)
         {
             var edges = (Edge)(int)(byte)newEdges;
-            if (edges != this.edges)
+            var previousEdges = (Edge)this.edges;
+            if (edges != previousEdges && Interlocked.CompareExchange(ref this.edges, (int)edges, (int)previousEdges) == (int)previousEdges)
             {
                 var handler = this.EdgeChange;
-
-                this.edges = edges;
                 if (handler != null)
                 {
-                    handler(this, new EdgeChangeEventArgs(edges));
+                    handler(this, new EdgeChangeEventArgs(previousEdges, edges));
                 }
             }
         }
