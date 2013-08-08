@@ -6,9 +6,9 @@ namespace DreamCheeky.MissileLauncher
 {
     public static class Launchers
     {
-        public static ILauncher Create()
+        public static IResettableLauncher Create()
         {
-            return Create<ILauncher>();
+            return Create<IResettableLauncher>();
         }
 
         public static T Create<T>() where T : ILauncher
