@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DreamCheeky.MissileLauncher
+namespace DreamCheeky
 {
     internal abstract class Service
     {

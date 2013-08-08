@@ -44,7 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ButtonDevice.cs" />
+    <Compile Include="..\DreamCheeky.MissileLauncher\Service.cs">
+      <Link>Service.cs</Link>
+    </Compile>
+    <Compile Include="Buttons.cs" />
+    <Compile Include="IButton.cs" />
+    <Compile Include="Implementations\BigRedButton.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

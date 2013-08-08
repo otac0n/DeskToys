@@ -1,26 +1,20 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Generic;
 using System.Threading;
 using HidLibrary;
 
-namespace DreamCheeky.Button
+namespace DreamCheeky.Button.Implementations
 {
-    public class ButtonDevice : IDisposable
+    public class BigRedButton : IButton
     {
         private static readonly byte[] readStatusCommand = { 0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02 };
         private readonly HidDevice device;
         private readonly Timer timer;
         private volatile bool state;
 
-        public ButtonDevice(int deviceIndex = 0, int productId = 0x08, int vendorId = 0x1D34)
+        private BigRedButton(HidDevice device)
         {
-            this.device = HidDevices.Enumerate(vendorId, productId).Skip(deviceIndex).FirstOrDefault();
-
-            if (this.device == null)
-            {
-                throw new ArgumentException("The given combination of vendorId, productId, and deviceIndex was invalid: no device found.");
-            }
-
+            this.device = device;
             this.timer = new Timer(Tick, null, TimeSpan.Zero, TimeSpan.FromMilliseconds(10));
         }
 
@@ -33,9 +27,18 @@ namespace DreamCheeky.Button
             get { return this.state; }
         }
 
+        internal static IEnumerable<Service> Enumerate()
+        {
+            foreach (var device in HidDevices.Enumerate(0x1D34, 0x0008))
+            {
+                yield return new Service<BigRedButton>(() => new BigRedButton(device));
+            }
+        }
+
         public void Dispose()
         {
             this.timer.Dispose();
+            this.device.Dispose();
         }
 
         private void Tick(object state)
