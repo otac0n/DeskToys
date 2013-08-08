@@ -20,6 +20,8 @@ namespace DreamCheeky.Button.Implementations
 
         public event EventHandler<EventArgs> Down;
 
+        public event EventHandler<EventArgs> Press;
+
         public event EventHandler<EventArgs> Up;
 
         public bool State
@@ -59,14 +61,28 @@ namespace DreamCheeky.Button.Implementations
         {
             if (newState != this.state)
             {
-                var handler = newState
-                    ? this.Down
-                    : this.Up;
-
                 this.state = newState;
-                if (handler != null)
+                if (newState)
                 {
-                    handler(this, new EventArgs());
+                    var handler = this.Down;
+                    if (handler != null)
+                    {
+                        handler(this, new EventArgs());
+                    }
+                }
+                else
+                {
+                    var handler = this.Press;
+                    if (handler != null)
+                    {
+                        handler(this, new EventArgs());
+                    }
+
+                    handler = this.Up;
+                    if (handler != null)
+                    {
+                        handler(this, new EventArgs());
+                    }
                 }
             }
         }
