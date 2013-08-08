@@ -50,6 +50,7 @@
     <Compile Include="Buttons.cs" />
     <Compile Include="IButton.cs" />
     <Compile Include="Implementations\BigRedButton.cs" />
+    <Compile Include="IStateAwareButton.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

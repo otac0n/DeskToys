@@ -5,7 +5,7 @@ using HidLibrary;
 
 namespace DreamCheeky.Button.Implementations
 {
-    public class BigRedButton : IButton
+    public class BigRedButton : IStateAwareButton
     {
         private static readonly byte[] readStatusCommand = { 0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02 };
         private readonly HidDevice device;
