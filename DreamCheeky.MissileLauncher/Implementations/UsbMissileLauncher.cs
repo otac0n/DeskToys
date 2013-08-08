@@ -63,6 +63,12 @@ namespace DreamCheeky.MissileLauncher.Implementations
             return IEdgeAwareLauncherTraits.Reset(this, edges);
         }
 
+        public async Task Fire()
+        {
+            await IEdgeAwareLauncherTraits.Fire(this);
+            await Task.Delay(TimeSpan.FromSeconds(2));
+        }
+
         private void Tick(object state)
         {
             this.WriteSync(readStatusCommand);

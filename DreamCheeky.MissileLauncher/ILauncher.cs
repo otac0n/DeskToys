@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace DreamCheeky.MissileLauncher
 {
@@ -8,5 +9,7 @@ namespace DreamCheeky.MissileLauncher
     public interface ILauncher : IDisposable
     {
         void Send(Command command);
+
+        Task Fire();
     }
 }

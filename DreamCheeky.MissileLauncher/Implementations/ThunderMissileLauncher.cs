@@ -85,6 +85,12 @@ namespace DreamCheeky.MissileLauncher.Implementations
             this.Send(Command.Stop);
         }
 
+        public async Task Fire()
+        {
+            this.Send(Command.Fire);
+            await Task.Delay(TimeSpan.FromSeconds(4));
+        }
+
         private bool WriteSync(byte[] data)
         {
             lock (this.device)

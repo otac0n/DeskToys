@@ -83,5 +83,23 @@ namespace DreamCheeky.MissileLauncher
 
             @this.EdgeChange -= handler;
         }
+
+        public static async Task Fire(this IEdgeAwareLauncher @this)
+        {
+            var flag = new AsyncAutoResetEvent();
+            EventHandler<EdgeChangeEventArgs> handler;
+            @this.EdgeChange += (handler = (o, e) =>
+            {
+                if (e.PreviousEdges.HasFlag(Edge.Fire) && !e.Edges.HasFlag(Edge.Fire))
+                {
+                    flag.Set();
+                }
+            });
+
+            @this.Send(Command.Fire);
+            await flag.WaitAsync();
+
+            @this.EdgeChange -= handler;
+        }
     }
 }
