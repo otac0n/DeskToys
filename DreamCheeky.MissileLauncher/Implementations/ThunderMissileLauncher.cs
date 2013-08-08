@@ -63,23 +63,23 @@ namespace DreamCheeky.MissileLauncher.Implementations
             if (left)
             {
                 this.Send(Command.Left);
-                await Task.Delay(TimeSpan.FromSeconds(6));
+                await Task.Delay(TimeSpan.FromSeconds(6.5));
             }
             else if (right)
             {
                 this.Send(Command.Right);
-                await Task.Delay(TimeSpan.FromSeconds(6));
+                await Task.Delay(TimeSpan.FromSeconds(6.5));
             }
 
             if (top)
             {
                 this.Send(Command.Up);
-                await Task.Delay(TimeSpan.FromSeconds(1));
+                await Task.Delay(TimeSpan.FromSeconds(1.5));
             }
             else if (bottom)
             {
                 this.Send(Command.Down);
-                await Task.Delay(TimeSpan.FromSeconds(1));
+                await Task.Delay(TimeSpan.FromSeconds(1.5));
             }
 
             this.Send(Command.Stop);
