@@ -28,7 +28,7 @@ namespace DeskToys.Implementations
         {
             foreach (var device in HidDevices.Enumerate(0x2123, 0x1010))
             {
-                yield return new Service<ThunderMissileLauncher>(() => new ThunderMissileLauncher(device));
+                yield return new Service<ThunderMissileLauncher>("Dream Cheeky Thunder Missile Launcher", () => new ThunderMissileLauncher(device));
             }
         }
 

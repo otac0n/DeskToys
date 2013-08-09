@@ -33,7 +33,7 @@ namespace DeskToys.Implementations
         {
             foreach (var device in HidDevices.Enumerate(0x1D34, 0x0008))
             {
-                yield return new Service<BigRedButton>(() => new BigRedButton(device));
+                yield return new Service<BigRedButton>("Dream Cheeky Big Red Button", () => new BigRedButton(device));
             }
         }
 

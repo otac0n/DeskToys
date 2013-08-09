@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading;
 using HidLibrary;
 
-namespace DeskToys
+namespace DeskToys.Implementations
 {
     public class PanicButton : IButton
     {
@@ -22,7 +22,7 @@ namespace DeskToys
         {
             foreach (var device in HidDevices.Enumerate(0x1130, 0x202).Where(d => d.Capabilities.NumberFeatureButtonCaps > 0))
             {
-                yield return new Service<PanicButton>(() => new PanicButton(device));
+                yield return new Service<PanicButton>("Jam Panic Button", () => new PanicButton(device));
             }
         }
 

@@ -4,7 +4,15 @@ namespace DeskToys
 {
     public abstract class Service
     {
-        public abstract Type Type { get; }
+        protected Service(string name, Type type)
+        {
+            this.Name = name;
+            this.Type = type;
+        }
+
+        public string Name { get; private set; }
+
+        public Type Type { get; private set; }
 
         public abstract object Get();
     }
@@ -13,14 +21,10 @@ namespace DeskToys
     {
         private readonly Func<T> factory;
 
-        public Service(Func<T> factory)
+        public Service(string name, Func<T> factory)
+            : base(name, typeof(T))
         {
             this.factory = factory;
-        }
-
-        public override Type Type
-        {
-            get { return typeof(T); }
         }
 
         public override object Get()

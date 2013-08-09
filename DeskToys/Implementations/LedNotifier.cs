@@ -9,9 +9,6 @@ namespace DeskToys.Implementations
 {
     public class LedNotifier : ILedNotifier
     {
-        public static readonly int MailboxFriendsAlertProductId = 0x0A;
-        public static readonly int WebMailNotifierProductId = 0x04;
-
         private static readonly byte[] colorData = { 0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1F, 0x05 };
 
         private static readonly byte[][] initData =
@@ -36,12 +33,12 @@ namespace DeskToys.Implementations
         {
             foreach (var device in HidDevices.Enumerate(0x1D34, 0x000A))
             {
-                yield return new Service<LedNotifier>(() => new LedNotifier(device));
+                yield return new Service<LedNotifier>("Dream Cheeky Mailbox Friends Alert", () => new LedNotifier(device));
             }
 
             foreach (var device in HidDevices.Enumerate(0x1D34, 0x0004))
             {
-                yield return new Service<LedNotifier>(() => new LedNotifier(device));
+                yield return new Service<LedNotifier>("Dream Cheeky WebMail Notifier", () => new LedNotifier(device));
             }
         }
 
