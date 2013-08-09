@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Threading.Tasks;
 
-namespace DreamCheeky.LedNotifier
+namespace DeskToys
 {
     public interface ILedNotifier : IDisposable
     {

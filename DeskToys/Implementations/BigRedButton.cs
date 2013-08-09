@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using HidLibrary;
 
-namespace DreamCheeky.Button.Implementations
+namespace DeskToys.Implementations
 {
     public class BigRedButton : IStateAwareButton
     {

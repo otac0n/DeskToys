@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
-namespace DreamCheeky.MissileLauncher
+namespace DeskToys
 {
     public static class Launchers
     {

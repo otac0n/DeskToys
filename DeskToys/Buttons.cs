@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
-namespace DreamCheeky.Button
+namespace DeskToys
 {
     public static class Buttons
     {

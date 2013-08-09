@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DreamCheeky.LedNotifier", "DreamCheeky.LedNotifier\DreamCheeky.LedNotifier.csproj", "{E0EBA809-8E44-46F8-ACA4-E994D5D47FEE}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{F832A6C5-0C91-46CD-A5A5-B20B2F1FC42F}"
 	ProjectSection(SolutionItems) = preProject
 		.nuget\NuGet.Config = .nuget\NuGet.Config
@@ -10,11 +8,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{F832A6
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DreamCheeky.MissileLauncher", "DreamCheeky.MissileLauncher\DreamCheeky.MissileLauncher.csproj", "{9B53AFAB-6E37-45D6-B414-D084299F3978}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DreamCheeky.Button", "DreamCheeky.Button\DreamCheeky.Button.csproj", "{FD197900-7C67-4338-ADF7-AB2E24F19A97}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jam.PanicButton", "Jam.PanicButton\Jam.PanicButton.csproj", "{11EB761C-082A-4055-962F-6AD9C711F98F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeskToys", "DeskToys\DeskToys.csproj", "{A5DB6CD1-6541-46A7-9729-5F5FBE03D652}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,22 +18,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E0EBA809-8E44-46F8-ACA4-E994D5D47FEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E0EBA809-8E44-46F8-ACA4-E994D5D47FEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E0EBA809-8E44-46F8-ACA4-E994D5D47FEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E0EBA809-8E44-46F8-ACA4-E994D5D47FEE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9B53AFAB-6E37-45D6-B414-D084299F3978}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9B53AFAB-6E37-45D6-B414-D084299F3978}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9B53AFAB-6E37-45D6-B414-D084299F3978}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9B53AFAB-6E37-45D6-B414-D084299F3978}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FD197900-7C67-4338-ADF7-AB2E24F19A97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FD197900-7C67-4338-ADF7-AB2E24F19A97}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FD197900-7C67-4338-ADF7-AB2E24F19A97}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FD197900-7C67-4338-ADF7-AB2E24F19A97}.Release|Any CPU.Build.0 = Release|Any CPU
 		{11EB761C-082A-4055-962F-6AD9C711F98F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{11EB761C-082A-4055-962F-6AD9C711F98F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11EB761C-082A-4055-962F-6AD9C711F98F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{11EB761C-082A-4055-962F-6AD9C711F98F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5DB6CD1-6541-46A7-9729-5F5FBE03D652}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5DB6CD1-6541-46A7-9729-5F5FBE03D652}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5DB6CD1-6541-46A7-9729-5F5FBE03D652}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5DB6CD1-6541-46A7-9729-5F5FBE03D652}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

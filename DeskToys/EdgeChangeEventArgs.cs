@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DreamCheeky.MissileLauncher
+namespace DeskToys
 {
     public class EdgeChangeEventArgs : EventArgs
     {

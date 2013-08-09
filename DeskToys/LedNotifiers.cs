@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
-namespace DreamCheeky.LedNotifier
+namespace DeskToys
 {
     public static class LedNotifiers
     {

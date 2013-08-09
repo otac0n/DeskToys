@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using HidLibrary;
 
-namespace DreamCheeky.LedNotifier
+namespace DeskToys.Implementations
 {
     public class LedNotifier : ILedNotifier
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DreamCheeky.Button
+namespace DeskToys
 {
     public interface IStateAwareButton : IButton
     {

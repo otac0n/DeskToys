@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace DreamCheeky.MissileLauncher
+namespace DeskToys
 {
     /// <summary>
     /// A launcher.

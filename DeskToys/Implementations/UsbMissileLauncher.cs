@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using HidLibrary;
 
-namespace DreamCheeky.MissileLauncher.Implementations
+namespace DeskToys.Implementations
 {
     internal class UsbMissileLauncher : IEdgeAwareLauncher
     {

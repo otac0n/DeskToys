@@ -1,4 +1,4 @@
-﻿namespace DreamCheeky.MissileLauncher
+﻿namespace DeskToys
 {
     public enum Command
     {

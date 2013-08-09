@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DreamCheeky
+namespace DeskToys
 {
     internal abstract class Service
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace DreamCheeky.MissileLauncher
+namespace DeskToys
 {
     internal class AsyncAutoResetEvent
     {
