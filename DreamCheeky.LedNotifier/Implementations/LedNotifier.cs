@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading;
@@ -7,7 +8,7 @@ using HidLibrary;
 
 namespace DreamCheeky.LedNotifier
 {
-    public class LedDevice : IDisposable
+    public class LedNotifier : ILedNotifier
     {
         public static readonly int MailboxFriendsAlertProductId = 0x0A;
         public static readonly int WebMailNotifierProductId = 0x04;
@@ -23,36 +24,80 @@ namespace DreamCheeky.LedNotifier
 
         private readonly HidDevice device;
         private bool initialized;
-        private byte redRange = 60;
-        private byte greenRange = 60;
-        private byte blueRange = 60;
+        private float redRange = 1.0f;
+        private float greenRange = 1.0f;
+        private float blueRange = 1.0f;
 
-        public LedDevice(int deviceIndex = 0, int productId = 0x0A, int vendorId = 0x1D34)
+        private LedNotifier(HidDevice device)
         {
-            this.device = HidDevices.Enumerate(vendorId, productId).Skip(deviceIndex).FirstOrDefault();
+            this.device = device;
+        }
 
-            if (this.device == null)
+        internal IEnumerable<Service> Enumerate()
+        {
+            foreach (var device in HidDevices.Enumerate(0x1D34, 0x000A))
             {
-                throw new ArgumentException("The given combination of vendorId, productId, and deviceIndex was invalid: no device found.");
+                yield return new Service<LedNotifier>(() => new LedNotifier(device));
+            }
+
+            foreach (var device in HidDevices.Enumerate(0x1D34, 0x0004))
+            {
+                yield return new Service<LedNotifier>(() => new LedNotifier(device));
             }
         }
 
-        public byte RedRange
+        public float RedIntensity
         {
-            get { return this.redRange; }
-            set { this.redRange = value; }
+            get
+            {
+                return this.redRange;
+            }
+
+            set
+            {
+                if (value > 1.0 || value < 0.0)
+                {
+                    throw new ArgumentOutOfRangeException("value");
+                }
+
+                this.redRange = value;
+            }
         }
 
-        public byte GreenRange
+        public float GreenIntensity
         {
-            get { return this.greenRange; }
-            set { this.greenRange = value; }
+            get
+            {
+                return this.greenRange;
+            }
+
+            set
+            {
+                if (value > 1.0 || value < 0.0)
+                {
+                    throw new ArgumentOutOfRangeException("value");
+                }
+
+                this.greenRange = value;
+            }
         }
 
-        public byte BlueRange
+        public float BlueIntensity
         {
-            get { return this.blueRange; }
-            set { this.blueRange = value; }
+            get
+            {
+                return this.blueRange;
+            }
+
+            set
+            {
+                if (value > 1.0 || value < 0.0)
+                {
+                    throw new ArgumentOutOfRangeException("value");
+                }
+
+                this.blueRange = value;
+            }
         }
 
         public static int GetDeviceCount(int vendorId, int productId)
@@ -64,9 +109,9 @@ namespace DreamCheeky.LedNotifier
         {
             var data = new byte[colorData.Length];
             Array.Copy(colorData, data, colorData.Length);
-            data[1] = (byte)Math.Floor(this.redRange * (color.R / 255.0));
-            data[2] = (byte)Math.Floor(this.greenRange * (color.G / 255.0));
-            data[3] = (byte)Math.Floor(this.blueRange * (color.B / 255.0));
+            data[1] = (byte)Math.Floor(60 * this.redRange * color.R / 255);
+            data[2] = (byte)Math.Floor(60 * this.greenRange * color.G / 255);
+            data[3] = (byte)Math.Floor(60 * this.blueRange * color.B / 255);
 
             return Write(data);
         }

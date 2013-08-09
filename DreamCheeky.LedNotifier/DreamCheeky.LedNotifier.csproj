@@ -40,7 +40,12 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LedDevice.cs" />
+    <Compile Include="..\DreamCheeky.MissileLauncher\Service.cs">
+      <Link>Service.cs</Link>
+    </Compile>
+    <Compile Include="ILedNotifier.cs" />
+    <Compile Include="Implementations\LedNotifier.cs" />
+    <Compile Include="LedNotifiers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
