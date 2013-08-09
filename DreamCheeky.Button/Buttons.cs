@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace DreamCheeky.Button
 {
-    public class Buttons
+    public static class Buttons
     {
         public static IButton Create()
         {
