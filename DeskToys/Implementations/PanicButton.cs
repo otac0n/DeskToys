@@ -1,28 +1,29 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using HidLibrary;
 
-namespace Jam.PanicButton
+namespace DeskToys
 {
-    public class ButtonDevice : IDisposable
+    public class PanicButton : IButton
     {
         private readonly HidDevice device;
         private readonly Timer timer;
 
-        public ButtonDevice(int deviceIndex = 0, int productId = 0x202, int vendorId = 0x1130)
+        private PanicButton(HidDevice device)
         {
-            this.device = HidDevices.Enumerate(vendorId, productId).Where(d => d.Capabilities.NumberFeatureButtonCaps > 0).Skip(deviceIndex).FirstOrDefault();
-
-            if (this.device == null)
-            {
-                throw new ArgumentException("The given combination of vendorId, productId, and deviceIndex was invalid: no device found.");
-            }
-
-            byte[] dummy;
-            this.device.ReadFeatureData(out dummy, 0);
-
+            this.device = device;
+            this.Tick(null);
             this.timer = new Timer(Tick, null, TimeSpan.Zero, TimeSpan.FromMilliseconds(10));
+        }
+
+        internal IEnumerable<Service> Enumerate()
+        {
+            foreach (var device in HidDevices.Enumerate(0x1130, 0x202).Where(d => d.Capabilities.NumberFeatureButtonCaps > 0))
+            {
+                yield return new Service<PanicButton>(() => new PanicButton(device));
+            }
         }
 
         public event EventHandler<EventArgs> Click;

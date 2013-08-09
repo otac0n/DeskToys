@@ -50,6 +50,7 @@
     <Compile Include="ILauncher.cs" />
     <Compile Include="ILedNotifier.cs" />
     <Compile Include="Implementations\BigRedButton.cs" />
+    <Compile Include="Implementations\PanicButton.cs" />
     <Compile Include="Implementations\LedNotifier.cs" />
     <Compile Include="Implementations\ThunderMissileLauncher.cs" />
     <Compile Include="Implementations\UsbMissileLauncher.cs" />
