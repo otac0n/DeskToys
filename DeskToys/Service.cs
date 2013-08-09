@@ -2,14 +2,14 @@
 
 namespace DeskToys
 {
-    internal abstract class Service
+    public abstract class Service
     {
         public abstract Type Type { get; }
 
         public abstract object Get();
     }
 
-    internal class Service<T> : Service
+    public class Service<T> : Service
     {
         private readonly Func<T> factory;
 

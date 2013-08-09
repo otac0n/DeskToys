@@ -4,25 +4,34 @@ using System.Reflection;
 
 namespace DeskToys
 {
-    public static class LedNotifiers
+    public static class Toys
     {
-        public static ILedNotifier Create()
+        public static IButton CreateButton()
+        {
+            return Create<IButton>();
+        }
+
+        public static ILedNotifier CreateLedNotifier()
         {
             return Create<ILedNotifier>();
         }
 
-        public static T Create<T>() where T : ILedNotifier
+        public static IResettableLauncher CreateLauncher()
         {
-            return FindServices()
-                .Where(s => typeof(T).IsAssignableFrom(s.Type))
+            return Create<IResettableLauncher>();
+        }
+
+        public static T Create<T>()
+        {
+            return FindAll<T>()
                 .Select(s => (T)s.Get())
                 .FirstOrDefault();
         }
 
-        private static IEnumerable<Service> FindServices()
+        public static IEnumerable<Service> FindAll<T>()
         {
             var implementations = from t in Assembly.GetExecutingAssembly().GetTypes()
-                                  where typeof(ILedNotifier).IsAssignableFrom(t)
+                                  where typeof(T).IsAssignableFrom(t)
                                   where t.IsClass
                                   where !t.IsAbstract
                                   select t;
