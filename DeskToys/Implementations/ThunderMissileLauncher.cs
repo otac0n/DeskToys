@@ -40,7 +40,7 @@ namespace DeskToys.Implementations
 
         public void Send(Command command)
         {
-            this.WriteSync(commands[command]);
+            this.device.WriteSync(commands[command]);
         }
 
         public async Task Reset(Edge edges)
@@ -89,24 +89,6 @@ namespace DeskToys.Implementations
         {
             this.Send(Command.Fire);
             await Task.Delay(TimeSpan.FromSeconds(4));
-        }
-
-        private bool WriteSync(byte[] data)
-        {
-            lock (this.device)
-            {
-                bool result = false;
-                this.device.Write(data, r =>
-                {
-                    lock (this.device)
-                    {
-                        result = r;
-                        Monitor.Pulse(this.device);
-                    }
-                });
-                Monitor.Wait(this.device);
-                return result;
-            }
         }
     }
 }

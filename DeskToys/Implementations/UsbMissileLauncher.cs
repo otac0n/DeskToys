@@ -20,7 +20,6 @@ namespace DeskToys.Implementations
 
         private static readonly byte[] readStatusCommand = { 0x00, 0x40 };
 
-        private readonly object sync = new object();
         private readonly HidDevice device;
         private readonly Timer timer;
         private int edges;
@@ -55,7 +54,7 @@ namespace DeskToys.Implementations
 
         public void Send(Command command)
         {
-            this.WriteSync(commands[command]);
+            this.device.WriteSync(commands[command]);
         }
 
         public Task Reset(Edge edges)
@@ -71,7 +70,7 @@ namespace DeskToys.Implementations
 
         private void Tick(object state)
         {
-            this.WriteSync(readStatusCommand);
+            this.device.WriteSync(readStatusCommand);
             var data = this.device.Read();
             if (data.Status == HidDeviceData.ReadStatus.Success)
             {
@@ -89,27 +88,6 @@ namespace DeskToys.Implementations
                 if (handler != null)
                 {
                     handler(this, new EdgeChangeEventArgs(previousEdges, edges));
-                }
-            }
-        }
-
-        private bool WriteSync(byte[] data)
-        {
-            lock (this.sync)
-            {
-                lock (this.device)
-                {
-                    bool result = false;
-                    this.device.Write(data, r =>
-                    {
-                        lock (this.device)
-                        {
-                            result = r;
-                            Monitor.Pulse(this.device);
-                        }
-                    });
-                    Monitor.Wait(this.device);
-                    return result;
                 }
             }
         }

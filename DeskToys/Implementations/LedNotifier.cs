@@ -121,7 +121,7 @@ namespace DeskToys.Implementations
             bool success = true;
             for (int i = 0; i < initData.Length; i++)
             {
-                success = success && this.WriteSync(initData[i]);
+                success = success && this.device.WriteSync(initData[i]);
             }
             this.initialized = true;
             return success;
@@ -135,26 +135,8 @@ namespace DeskToys.Implementations
                     ? true
                     : this.Initialize();
 
-                return success && this.WriteSync(data);
+                return success && this.device.WriteSync(data);
             });
-        }
-
-        private bool WriteSync(byte[] data)
-        {
-            lock (this.device)
-            {
-                bool result = false;
-                this.device.Write(data, r =>
-                {
-                    lock (this.device)
-                    {
-                        result = r;
-                        Monitor.Pulse(this.device);
-                    }
-                });
-                Monitor.Wait(this.device);
-                return result;
-            }
         }
 
         public void Dispose()

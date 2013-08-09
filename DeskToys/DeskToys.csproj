@@ -45,6 +45,7 @@
     <Compile Include="Command.cs" />
     <Compile Include="Edge.cs" />
     <Compile Include="EdgeChangeEventArgs.cs" />
+    <Compile Include="HidDeviceExtensions.cs" />
     <Compile Include="IButton.cs" />
     <Compile Include="IEdgeAwareLauncher.cs" />
     <Compile Include="ILauncher.cs" />

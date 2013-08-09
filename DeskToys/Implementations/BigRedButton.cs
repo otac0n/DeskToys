@@ -45,7 +45,7 @@ namespace DeskToys.Implementations
 
         private void Tick(object state)
         {
-            var success = this.WriteSync(readStatusCommand);
+            var success = this.device.WriteSync(readStatusCommand);
             if (success)
             {
                 var result = this.device.Read();
@@ -84,24 +84,6 @@ namespace DeskToys.Implementations
                         handler(this, new EventArgs());
                     }
                 }
-            }
-        }
-
-        private bool WriteSync(byte[] data)
-        {
-            lock (this.device)
-            {
-                bool result = false;
-                this.device.Write(data, r =>
-                {
-                    lock (this.device)
-                    {
-                        result = r;
-                        Monitor.Pulse(this.device);
-                    }
-                });
-                Monitor.Wait(this.device);
-                return result;
             }
         }
     }
