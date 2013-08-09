@@ -38,6 +38,7 @@ namespace DeskToys
 
             var services = from i in implementations
                            let enumerate = i.GetMethod("Enumerate", BindingFlags.Static | BindingFlags.Public)
+                           where enumerate != null
                            from s in (IEnumerable<Service>)enumerate.Invoke(null, new object[0])
                            select s;
 
