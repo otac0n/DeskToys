@@ -18,7 +18,7 @@ namespace DeskToys.Implementations
             this.timer = new Timer(Tick, null, TimeSpan.Zero, TimeSpan.FromMilliseconds(10));
         }
 
-        internal IEnumerable<Service> Enumerate()
+        public static IEnumerable<Service> Enumerate()
         {
             foreach (var device in HidDevices.Enumerate(0x1130, 0x202).Where(d => d.Capabilities.NumberFeatureButtonCaps > 0))
             {

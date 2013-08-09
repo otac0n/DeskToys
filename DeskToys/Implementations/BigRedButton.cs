@@ -29,7 +29,7 @@ namespace DeskToys.Implementations
             get { return this.state; }
         }
 
-        internal static IEnumerable<Service> Enumerate()
+        public static IEnumerable<Service> Enumerate()
         {
             foreach (var device in HidDevices.Enumerate(0x1D34, 0x0008))
             {
