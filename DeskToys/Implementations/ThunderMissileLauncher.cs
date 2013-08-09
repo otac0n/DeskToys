@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
 using HidLibrary;
 
@@ -38,9 +37,9 @@ namespace DeskToys.Implementations
             this.device.Dispose();
         }
 
-        public void Send(Command command)
+        public async Task Send(Command command)
         {
-            this.device.WriteSync(commands[command]);
+            await this.device.WriteAsync(commands[command]);
         }
 
         public async Task Reset(Edge edges)
@@ -62,32 +61,32 @@ namespace DeskToys.Implementations
 
             if (left)
             {
-                this.Send(Command.Left);
+                await this.Send(Command.Left);
                 await Task.Delay(TimeSpan.FromSeconds(6.5));
             }
             else if (right)
             {
-                this.Send(Command.Right);
+                await this.Send(Command.Right);
                 await Task.Delay(TimeSpan.FromSeconds(6.5));
             }
 
             if (top)
             {
-                this.Send(Command.Up);
+                await this.Send(Command.Up);
                 await Task.Delay(TimeSpan.FromSeconds(1.5));
             }
             else if (bottom)
             {
-                this.Send(Command.Down);
+                await this.Send(Command.Down);
                 await Task.Delay(TimeSpan.FromSeconds(1.5));
             }
 
-            this.Send(Command.Stop);
+            await this.Send(Command.Stop);
         }
 
         public async Task Fire()
         {
-            this.Send(Command.Fire);
+            await this.Send(Command.Fire);
             await Task.Delay(TimeSpan.FromSeconds(4));
         }
     }

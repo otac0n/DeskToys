@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using HidLibrary;
 
@@ -105,7 +104,7 @@ namespace DeskToys.Implementations
             return HidDevices.Enumerate(vendorId, productId).Count();
         }
 
-        public Task SetColor(Color color)
+        public async Task SetColor(Color color)
         {
             var data = new byte[colorData.Length];
             Array.Copy(colorData, data, colorData.Length);
@@ -113,30 +112,26 @@ namespace DeskToys.Implementations
             data[2] = (byte)Math.Floor(60 * this.greenRange * color.G / 255);
             data[3] = (byte)Math.Floor(60 * this.blueRange * color.B / 255);
 
-            return Write(data);
+            if (await this.Initialize())
+            {
+                await this.device.WriteAsync(data);
+            }
         }
 
-        private bool Initialize()
+        private async Task<bool> Initialize()
         {
-            bool success = true;
+            if (this.initialized)
+            {
+                return true;
+            }
+
+            var success = true;
             for (int i = 0; i < initData.Length; i++)
             {
-                success = success && this.device.WriteSync(initData[i]);
+                success = success && await this.device.WriteAsync(initData[i]);
             }
-            this.initialized = true;
-            return success;
-        }
 
-        private Task<bool> Write(byte[] data)
-        {
-            return Task.Factory.StartNew(() =>
-            {
-                bool success = this.initialized
-                    ? true
-                    : this.Initialize();
-
-                return success && this.device.WriteSync(data);
-            });
+            return this.initialized = success;
         }
 
         public void Dispose()

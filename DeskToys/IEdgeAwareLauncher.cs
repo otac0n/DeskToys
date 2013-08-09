@@ -77,7 +77,7 @@ namespace DeskToys
 
             if (!@this.Edges.HasFlag(edge))
             {
-                @this.Send(command);
+                await @this.Send(command);
                 await flag.WaitAsync();
             }
 
@@ -96,7 +96,7 @@ namespace DeskToys
                 }
             });
 
-            @this.Send(Command.Fire);
+            await @this.Send(Command.Fire);
             await flag.WaitAsync();
 
             @this.EdgeChange -= handler;

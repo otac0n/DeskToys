@@ -52,9 +52,9 @@ namespace DeskToys.Implementations
             this.device.Dispose();
         }
 
-        public void Send(Command command)
+        public async Task Send(Command command)
         {
-            this.device.WriteSync(commands[command]);
+            await this.device.WriteAsync(commands[command]);
         }
 
         public Task Reset(Edge edges)
@@ -70,11 +70,14 @@ namespace DeskToys.Implementations
 
         private void Tick(object state)
         {
-            this.device.WriteSync(readStatusCommand);
-            var data = this.device.Read();
-            if (data.Status == HidDeviceData.ReadStatus.Success)
+            var success = this.device.WriteAsync(readStatusCommand).Result;
+            if (success)
             {
-                UpdateEdges((DeviceEdge)data.Data[1]);
+                var data = this.device.Read();
+                if (data.Status == HidDeviceData.ReadStatus.Success)
+                {
+                    this.UpdateEdges((DeviceEdge)data.Data[1]);
+                }
             }
         }
 

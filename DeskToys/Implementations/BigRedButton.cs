@@ -45,7 +45,7 @@ namespace DeskToys.Implementations
 
         private void Tick(object state)
         {
-            var success = this.device.WriteSync(readStatusCommand);
+            var success = this.device.WriteAsync(readStatusCommand).Result;
             if (success)
             {
                 var result = this.device.Read();

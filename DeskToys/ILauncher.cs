@@ -8,7 +8,7 @@ namespace DeskToys
     /// </summary>
     public interface ILauncher : IDisposable
     {
-        void Send(Command command);
+        Task Send(Command command);
 
         Task Fire();
     }

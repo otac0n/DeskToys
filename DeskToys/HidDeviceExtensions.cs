@@ -1,26 +1,15 @@
-﻿using System.Threading;
+﻿using System.Threading.Tasks;
 using HidLibrary;
 
 namespace DeskToys
 {
     internal static class HidDeviceExtensions
     {
-        public static bool WriteSync(this HidDevice device, byte[] data)
+        public static Task<bool> WriteAsync(this HidDevice device, byte[] data)
         {
-            lock (device)
-            {
-                bool result = false;
-                device.Write(data, r =>
-                {
-                    lock (device)
-                    {
-                        result = r;
-                        Monitor.Pulse(device);
-                    }
-                });
-                Monitor.Wait(device);
-                return result;
-            }
+            var source = new TaskCompletionSource<bool>();
+            device.Write(data, r => { source.SetResult(r); });
+            return source.Task;
         }
     }
 }
