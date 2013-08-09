@@ -26,7 +26,7 @@ namespace DeskToys
             }
         }
 
-        public event EventHandler<EventArgs> Click;
+        public event EventHandler<EventArgs> Press;
 
         public void Dispose()
         {
@@ -40,14 +40,14 @@ namespace DeskToys
             {
                 for (var i = 0; i < data[1]; i++)
                 {
-                    this.RaiseClick();
+                    this.RaisePress();
                 }
             }
         }
 
-        private void RaiseClick()
+        private void RaisePress()
         {
-            var handler = this.Click;
+            var handler = this.Press;
             if (handler != null)
             {
                 handler(this, new EventArgs());
