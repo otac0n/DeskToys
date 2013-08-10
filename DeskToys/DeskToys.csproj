@@ -38,6 +38,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AsyncAutoResetEvent.cs" />
@@ -54,8 +55,10 @@
     <Compile Include="Implementations\LedNotifier.cs" />
     <Compile Include="Implementations\ThunderMissileLauncher.cs" />
     <Compile Include="Implementations\UsbMissileLauncher.cs" />
+    <Compile Include="Implementations\StressButton.cs" />
     <Compile Include="IResettableLauncher.cs" />
     <Compile Include="IStateAwareButton.cs" />
+    <Compile Include="NativeMethods.cs" />
     <Compile Include="Toys.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service.cs" />
