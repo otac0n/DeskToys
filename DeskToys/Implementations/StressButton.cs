@@ -45,12 +45,9 @@ namespace DeskToys.Implementations
         {
             private const int WM_HOTKEY = 0x312;
             private static int autoId;
-            private int hotKeyId;
 
             public HotKeyForm(Keys keys)
             {
-                this.hotKeyId = AutoId;
-
                 var modifiers = keys & Keys.Modifiers;
 
                 var key = (uint)(keys & ~Keys.Modifiers);
@@ -59,7 +56,7 @@ namespace DeskToys.Implementations
                     (modifiers.HasFlag(Keys.Control) ? 0x02u : 0) +
                     (modifiers.HasFlag(Keys.Shift) ? 0x04u : 0);
 
-                if (!NativeMethods.RegisterHotKey(this.Handle, this.hotKeyId, modifier, key))
+                if (!NativeMethods.RegisterHotKey(this.Handle, AutoId, modifier, key))
                 {
                     throw new Win32Exception(Marshal.GetLastWin32Error());
                 }
@@ -114,16 +111,6 @@ namespace DeskToys.Implementations
                 if (disposing)
                 {
                     this.Close();
-                }
-
-                if (this.hotKeyId != 0)
-                {
-                    if (!NativeMethods.UnregisterHotKey(this.Handle, this.hotKeyId))
-                    {
-                        throw new Win32Exception(Marshal.GetLastWin32Error());
-                    }
-
-                    this.hotKeyId = 0;
                 }
 
                 base.Dispose(disposing);
