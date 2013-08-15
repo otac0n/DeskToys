@@ -24,6 +24,11 @@ namespace DeskToys.Implementations
             this.device = device;
         }
 
+        public int MissileCount
+        {
+            get { return 4; }
+        }
+
         public static IEnumerable<Service> Enumerate()
         {
             foreach (var device in HidDevices.Enumerate(0x2123, 0x1010))

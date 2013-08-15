@@ -58,6 +58,7 @@
     <Compile Include="Implementations\StressButton.cs" />
     <Compile Include="IResettableLauncher.cs" />
     <Compile Include="IStateAwareButton.cs" />
+    <Compile Include="LauncherExtensions.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="Toys.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

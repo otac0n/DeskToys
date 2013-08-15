@@ -31,6 +31,11 @@ namespace DeskToys.Implementations
             this.timer = new Timer(Tick, null, TimeSpan.FromMilliseconds(100), TimeSpan.FromMilliseconds(100));
         }
 
+        public int MissileCount
+        {
+            get { return 3; }
+        }
+
         public static IEnumerable<Service> Enumerate()
         {
             foreach (var device in HidDevices.Enumerate(0x0A81, 0x0701))

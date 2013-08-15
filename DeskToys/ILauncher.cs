@@ -8,6 +8,8 @@ namespace DeskToys
     /// </summary>
     public interface ILauncher : IDisposable
     {
+        int MissileCount { get; }
+
         Task Send(Command command);
 
         Task Fire();
