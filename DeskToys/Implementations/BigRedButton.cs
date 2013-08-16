@@ -7,15 +7,23 @@ namespace DeskToys.Implementations
 {
     public class BigRedButton : IStateAwareButton
     {
+        private static readonly byte[] initCommand = { 0, 0x03, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
         private static readonly byte[] readStatusCommand = { 0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02 };
         private readonly HidDevice device;
+        private bool disposed;
+        private bool initialized;
         private readonly Timer timer;
+        private Thread thread;
         private volatile bool state;
 
         private BigRedButton(HidDevice device)
         {
             this.device = device;
-            this.timer = new Timer(Tick, null, TimeSpan.Zero, TimeSpan.FromMilliseconds(10));
+            this.device.OpenDevice(HidDevice.DeviceMode.Overlapped, HidDevice.DeviceMode.NonOverlapped);
+            this.timer = new Timer(Tick, null, TimeSpan.Zero, TimeSpan.FromMilliseconds(20));
+            this.thread = new Thread(Poll);
+            this.thread.IsBackground = true;
+            this.thread.Start();
         }
 
         public event EventHandler<EventArgs> Down;
@@ -39,16 +47,33 @@ namespace DeskToys.Implementations
 
         public void Dispose()
         {
+            this.disposed = true;
             this.timer.Dispose();
+
+            if (this.thread != null)
+            {
+                this.thread.Join();
+            }
+
             this.device.Dispose();
         }
 
         private void Tick(object state)
         {
-            var success = this.device.WriteAsync(readStatusCommand).Result;
-            if (success)
+            if (!this.initialized)
             {
-                var result = this.device.Read();
+                this.initialized = true;
+                this.device.WriteAsync(initCommand).Wait();
+            }
+
+            this.device.WriteAsync(readStatusCommand).Wait();
+        }
+
+        private void Poll()
+        {
+            while (!this.disposed)
+            {
+                var result = this.device.Read(50);
                 if (result.Status == HidDeviceData.ReadStatus.Success)
                 {
                     var newState = result.Data[1] == 22;
