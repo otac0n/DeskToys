@@ -31,7 +31,7 @@ namespace DeskToys.Implementations
 
         public static IEnumerable<Service> Enumerate()
         {
-            foreach (var device in HidDevices.Enumerate(0x1D34, 0x0008))
+            foreach (var device in HidDevices.Enumerate(0x1D34, 0x000D))
             {
                 yield return new Service<BigRedButton>("Dream Cheeky Big Red Button", () => new BigRedButton(device));
             }
@@ -51,7 +51,7 @@ namespace DeskToys.Implementations
                 var result = this.device.Read();
                 if (result.Status == HidDeviceData.ReadStatus.Success)
                 {
-                    var newState = result.Data[1] == 0x1C;
+                    var newState = result.Data[1] == 22;
                     this.UpdateState(newState);
                 }
             }
